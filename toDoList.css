@@ -1,0 +1,12 @@
+.addTask{
+    display:none;
+}
+.visible-addTask{
+    display:block;
+}
+body{
+    display:flex;
+    flex-direction: row;
+    justify-content:space-around;
+
+}

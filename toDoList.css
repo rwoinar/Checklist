@@ -1,12 +1,98 @@
+
+.cover{
+    display:none;
+    position:absolute;
+    height:100%;
+    width:100%;
+    background-color:#5c958c70;
+    z-index:2;
+}
 .addTask{
     display:none;
 }
 .visible-addTask{
     display:block;
+    position:fixed;
+    z-index:2;
+    text-align:center;
+    top:50%;
+    right:50%;
+    transform: translate(50%, -50%);
+    background-color: #5c958c;
+    width:400px;
+    height:400px;
+    padding-top:100px;
+    z-index:3;
+}
+.addTaskLabel{
+    font-size: 30px;
+    padding-bottom:20px;
+    color: #f3f2ff;
+    z-index:1;
+}
+button:hover{
+    cursor: pointer;
+}
+button:not(.cancel){
+    background-color: #5c958cbd;
+    color: #f3f2ff;
+    border: 1px solid #f3f2ff;
+}
+.addTaskButton{
+    display:block;
+    font-size:20px;
+    margin-bottom: 20px;
+    margin-left:50%;
+    transform:translate(-50%, 0);
+}
+h1{
+    color:#80c2b8;
+    font-size:50px;
+    margin-bottom: 0px;
+    text-align:center;
+}
+.done{
+    margin-bottom: 45px;
+}
+main{
+    border:3px solid #80c2b8e8;
+    padding-top: 0;
+    flex-grow:1;
+}
+.toDo{
+    padding-top:30px;
+}
+.task{
+    font-size:20px;
+    padding-bottom:5px;
+}
+.editBox{
+    display:none;
+}
+.editBox-visible{
+    display:block;
+    position:absolute;
+    left:42px;
+}
+.cancel{
+    background-color:#80c2b8;
+    border:0;
+    margin-left:5px;
+    
+}
+aside{
+    border:3px solid #80c2b8e8;
+    padding-top: 0;
+    flex-grow:1;
+}
+div:not(.cover){
+    color:#2d625a;
 }
 body{
     display:flex;
-    flex-direction: row;
-    justify-content:space-around;
-
+    flex-direction:row;
+    justify-content:center;
+    height:100vh;
+    margin:20px;
+    background-color: #f3f2ff;
 }

@@ -9,6 +9,17 @@
 }
 .addTask{
     display:none;
+    position:fixed;
+    z-index:2;
+    text-align:center;
+    top:50%;
+    right:50%;
+    transform: translate(50%, -50%);
+    background-color: #5c958c;
+    width:400px;
+    height:400px;
+    padding-top:100px;
+    z-index:3;
 }
 .visible-addTask{
     display:block;
@@ -58,6 +69,8 @@ main{
     border:3px solid #80c2b8e8;
     padding-top: 0;
     flex-grow:1;
+    word-break: break-word;
+    max-width: 49%;
 }
 .toDo{
     padding-top:30px;
@@ -77,13 +90,14 @@ main{
 .cancel{
     background-color:#80c2b8;
     border:0;
-    margin-left:5px;
-    
+    margin-left:5px;  
 }
 aside{
     border:3px solid #80c2b8e8;
     padding-top: 0;
     flex-grow:1;
+    word-break: break-word;
+    max-width: 49%;
 }
 div:not(.cover){
     color:#2d625a;

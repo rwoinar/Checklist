@@ -1,4 +1,57 @@
-window.addEventListener('load', () => {
+window.addEventListener('load', onLoad)
+
+var tasks = [
+{ id: 1, name: "Ruxi's task", isDone: false},
+{ id: 2, name: "Ruxi's task", isDone: false},
+{ id: 3, name: "Ruxi's task", isDone: false},
+{ id: 4, name: "Ruxi's task", isDone: false},
+{ id: 5, name: "Ruxi's task", isDone: false},
+{ id: 6, name: "Ruxi's task", isDone: false},
+]
+
+
+const nextId = nextIdGen()
+function nextIdGen(){
+    var id = 1
+    return function(){
+        return id++
+    }
+}
+console.log("Nid", nextId())
+console.log("Nid", nextId())
+console.log("Nid", nextId())
+console.log("Nid", nextId())
+console.log("Nid", nextId())
+console.log("Nid", nextId())
+
+function refreshTasks(){
+    clearTasks()
+    for ( task of tasks) {
+        if ( task.isDone){
+            addDone(task.name)
+        }else {
+            addToDo(task.name)
+        }
+    }
+}
+
+function deleteToDo(taskName){
+}
+
+
+function deleteDone(taskName){
+}
+
+function addToDo(taskName){
+    // get todo task list
+    // create task
+}
+function addDone( taskName){
+    // get task list element
+    // append new task
+}
+
+function onLoad() {
     
     let addTaskButton = document.getElementById('addTaskButton');
     let addButton = document.getElementById('add');
@@ -7,12 +60,12 @@ window.addEventListener('load', () => {
 
     addTaskButton.addEventListener('click', () => {
         document.getElementsByClassName('addTask')[0].classList.add('visible-addTask'); 
-        document.getElementById('cover').style.display = 'block';
+        setDisplayMode('cover','block');
     })
 
 
     addButton.addEventListener('click', () => {
-        document.getElementById('cover').style.display = 'none';
+        setDisplayMode('cover','none');
         const newDiv = document.createElement('div');
         let newDivClass = document.createAttribute('class');
         const newTask = document.createElement('input');
@@ -86,8 +139,12 @@ window.addEventListener('load', () => {
     cancelButton.addEventListener('click', () => {
         document.getElementsByClassName('addTask')[0].classList.remove('visible-addTask');
         document.getElementById('newTaskInput').value = '';
-        document.getElementById('cover').style.display = 'none';
+        setDisplayMode('cover','none');
     })
 
 
-})
+}
+
+function setDisplayMode(elementId, mode){
+    document.getElementById(elementId).style.display = mode
+}

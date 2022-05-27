@@ -7,8 +7,46 @@
     background-color:#5c958c70;
     z-index:2;
 }
+.randomColor{
+    height:60px;
+    font-size: 20px;
+    margin-bottom:10px;
+}
+.cursorPosition{
+    background-color: #5c958cbd;
+    color: #f3f2ff;
+    border:none;
+    height:60px;
+    width:142px;
+    font-size: 20px;
+    margin-top:10px;
+}
+.cursorPosition-clicked{
+    background-color: #f3f2ff;
+    color:#2d625a;
+}
+.resetColor{
+    background-color:#2d625a;
+    color:#5c958c;
+    height:60px;
+    width:142px;
+    font-size: 20px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
 .addTask{
     display:none;
+    position:fixed;
+    z-index:2;
+    text-align:center;
+    top:50%;
+    right:50%;
+    transform: translate(50%, -50%);
+    background-color: #5c958c;
+    width:400px;
+    height:400px;
+    padding-top:100px;
+    z-index:3;
 }
 .visible-addTask{
     display:block;
@@ -33,7 +71,7 @@
 button:hover{
     cursor: pointer;
 }
-button:not(.cancel){
+button:not(.cancel, .cursorPosition){
     background-color: #5c958cbd;
     color: #f3f2ff;
     border: 1px solid #f3f2ff;
@@ -58,6 +96,8 @@ main{
     border:3px solid #80c2b8e8;
     padding-top: 0;
     flex-grow:1;
+    word-break: break-word;
+    max-width: 49%;
 }
 .toDo{
     padding-top:30px;
@@ -77,15 +117,16 @@ main{
 .cancel{
     background-color:#80c2b8;
     border:0;
-    margin-left:5px;
-    
+    margin-left:5px;  
 }
 aside{
     border:3px solid #80c2b8e8;
     padding-top: 0;
     flex-grow:1;
+    word-break: break-word;
+    max-width: 49%;
 }
-div:not(.cover){
+div:not(.cover, #coverButtons){
     color:#2d625a;
 }
 body{

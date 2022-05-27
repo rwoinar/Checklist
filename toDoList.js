@@ -1,129 +1,78 @@
-window.addEventListener('load', onLoad)
-
-var tasks = [
-{ id: 1, name: "Ruxi's task", isDone: false},
-{ id: 2, name: "Ruxi's task", isDone: false},
-{ id: 3, name: "Ruxi's task", isDone: false},
-{ id: 4, name: "Ruxi's task", isDone: false},
-{ id: 5, name: "Ruxi's task", isDone: false},
-{ id: 6, name: "Ruxi's task", isDone: false},
-]
-
-
-const nextId = nextIdGen()
-function nextIdGen(){
-    var id = 1
-    return function(){
-        return id++
-    }
-}
-console.log("Nid", nextId())
-console.log("Nid", nextId())
-console.log("Nid", nextId())
-console.log("Nid", nextId())
-console.log("Nid", nextId())
-console.log("Nid", nextId())
-
-function refreshTasks(){
-    clearTasks()
-    for ( task of tasks) {
-        if ( task.isDone){
-            addDone(task.name)
-        }else {
-            addToDo(task.name)
-        }
-    }
-}
-
-function deleteToDo(taskName){
-}
-
-
-function deleteDone(taskName){
-}
-
-function addToDo(taskName){
-    // get todo task list
-    // create task
-}
-function addDone( taskName){
-    // get task list element
-    // append new task
-}
-
-function onLoad() {
+window.addEventListener('load', () => {
     
     let addTaskButton = document.getElementById('addTaskButton');
     let addButton = document.getElementById('add');
+    let currentDiv1 = document.getElementById("toDo");
     let currentDiv2 = document.getElementById('done');
+    let main = document.getElementById('toDo').parentNode;
     let cancelButton = document.getElementById('cancel');
-
-    addTaskButton.addEventListener('click', () => {
-        document.getElementsByClassName('addTask')[0].classList.add('visible-addTask'); 
-        setDisplayMode('cover','block');
-    })
-
-
-    addButton.addEventListener('click', () => {
-        setDisplayMode('cover','none');
-        const newDiv = document.createElement('div');
-        let newDivClass = document.createAttribute('class');
-        const newTask = document.createElement('input');
-        let taskType = document.createAttribute('type');
-        let newTaskLabel = document.createElement('label');
-        let newTaskContent = document.createTextNode(document.getElementById('newTaskInput').value);
-        
-        let editBox = document.createElement('input');
-        let editType = document.createAttribute('type');
-        let editClass = document.createAttribute('class');
-        editClass.value = 'editBox';
-        editType.value = 'text';
-        editBox.setAttributeNode(editClass);
-        editBox.setAttributeNode(editType);
-
-        const newCancel = document.createElement('button');
-        let cancelClass = document.createAttribute('class');
-        newCancel.innerHTML = 'x';
-
-        const currentDiv1 = document.getElementById("toDo");
-
-        const main = document.getElementById('toDo').parentNode;
-
-        newDivClass.value = 'task';
-        taskType.value = 'checkbox';
-        newDiv.setAttributeNode(newDivClass);
-        newTask.setAttributeNode(taskType);
-        newTaskLabel.appendChild(newTaskContent);
-
-        cancelClass.value = 'cancel';
-        newCancel.setAttributeNode(cancelClass);
+    let randomColor = document.getElementById('randomColor');
+    let chooseColor = document.getElementById('chooseColor');
+    let reset = document.getElementById('resetColor');
+    let cursorPos = document.getElementById('cursorPosition');
+    let change = true;
     
+    function createDiv(){
+        newDiv = document.createElement('div');
+        newDivClass = document.createAttribute('class');
+        newDivClass.value = 'task';
+        newDiv.setAttributeNode(newDivClass);
+        return newDiv;
+    }
+
+    function createTask(){
+        newTask = document.createElement('input');
+        taskType = document.createAttribute('type');
+        taskType.value = 'checkbox';
+        newTask.setAttributeNode(taskType);
+        return newTask;
+    }
+    
+    function createTaskLabel(){
+        newTaskLabel = document.createElement('label');
+        newTaskContent = document.createTextNode(document.getElementById('newTaskInput').value);
+        newTaskLabel.appendChild(newTaskContent);
+        return newTaskLabel;
+    }
+
+    function createDel(){
+        newDel = document.createElement('button');
+        newDel.innerHTML = 'x';
+        delClass = document.createAttribute('class');
+        delClass.value = 'cancel';
+        newDel.setAttributeNode(delClass);
+        return newDel;
+    }
+
+    function appendAndInsert(){
+        newDiv.appendChild(newTask);
+        newDiv.appendChild(newTaskLabel);
+        newDiv.appendChild(newDel);
+        main.insertBefore(newDiv, currentDiv1);
+    }
+
+    function visibility(elem, visibility){
+        if(visibility){
+            elem.style.display = 'block';
+        }
+        else{
+            elem.style.display = 'none';
+        }
+    }
+
+    function mainCode(){
+        const newDiv = createDiv();
+        const newTask = createTask();
+        const newTaskLabel = createTaskLabel();
+        const newDel = createDel();
+
         if(document.getElementById('newTaskInput').value != ''){
-            newDiv.appendChild(newTask);
-            newDiv.appendChild(newTaskLabel);
-            newDiv.appendChild(newCancel);
-            newDiv.appendChild(editBox);
-            main.insertBefore(newDiv, currentDiv1);
+            appendAndInsert();
         }
 
-        document.getElementsByClassName('addTask')[0].classList.remove('visible-addTask');
-        document.getElementById('newTaskInput').value = ''
-
-        newCancel.addEventListener('click', () => {
+        newDel.addEventListener('click', () => {
             newDiv.remove();
         })
-
-        document.getElementsByClassName('addTask')[0].classList.remove('visible-addTask');
-        document.getElementById('newTaskInput').value = '';
-
-        // newDiv.addEventListener('dblclick', () => {
-        //     editBox.classList.add('editBox-visible');
-        //     editBox.value = newTaskLabel.innerHTML;
-        // })
-
-        // document.addEventListener('click', () => {
-            
-        // })
 
         newTask.addEventListener('change', () => {
             if(newTask.checked){
@@ -134,17 +83,76 @@ function onLoad() {
             }
         })
 
+        visibility(document.getElementById('cover'), false);
+        visibility(document.getElementsByClassName('addTask')[0], false);
+        document.getElementById('newTaskInput').value = '';
+    }
+
+    function getColorCode(){
+        var makeColorCode = '0123456789ABCDEF';
+        var code = '#';
+        for (var i = 0; i < 6; i++) {
+            code = code + makeColorCode[Math.floor(Math.random() * 16)];
+        }
+        return code;
+    }
+
+    addTaskButton.addEventListener('click', () => {
+        visibility(document.getElementsByClassName('addTask')[0], true); 
+        visibility(document.getElementById('cover'), true);
+        document.addEventListener('keydown', (event) => {
+            if(event.code == 'Enter'){
+                event.preventDefault();
+                mainCode();
+            } 
+        })
+    })
+
+    addButton.addEventListener('click', () => {
+        mainCode();
     })  
 
     cancelButton.addEventListener('click', () => {
-        document.getElementsByClassName('addTask')[0].classList.remove('visible-addTask');
         document.getElementById('newTaskInput').value = '';
-        setDisplayMode('cover','none');
+        visibility(document.getElementsByClassName('addTask')[0], false);
+        visibility(document.getElementById('cover'), false);
     })
 
+    randomColor.addEventListener('click', () => {
+        let color = getColorCode();        
+        document.getElementById('body').style.backgroundColor = color;
+        change = false;
+        cursorPos.classList.remove('cursorPosition-clicked');
+    })
 
-}
+    cursorPos.addEventListener('click', () => {
+        cursorPos.classList.add('cursorPosition-clicked');
+        change = true;
+        alert('Move your mouse around! \r\n Double-Click anywhere to set color.')
+        document.getElementById('body').addEventListener('mousemove', function(e) {
+            if(change == true){
+                console.log('ai miscat mouse-ul');
+                x = e.offsetX;
+                y = e.offsetY;
+                document.getElementById('body').style.backgroundColor = `rgb(${x}, ${y}, ${x - y})`;
+                document.getElementById('body').addEventListener('dblclick', () => {
+                    change = false;
+                    cursorPos.classList.remove('cursorPosition-clicked');
+                })
+            }
+        })
+    })
 
-function setDisplayMode(elementId, mode){
-    document.getElementById(elementId).style.display = mode
-}
+    chooseColor.addEventListener('change', () => {
+            document.getElementById('body').style.backgroundColor = chooseColor.value;
+            change = false;
+            cursorPos.classList.remove('cursorPosition-clicked');
+    })
+
+    reset.addEventListener('click', () => {
+        document.getElementById('body').style.backgroundColor = '#f3f2ff';
+        change = false;
+        cursorPos.classList.remove('cursorPosition-clicked');
+    })
+
+})

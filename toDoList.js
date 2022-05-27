@@ -6,6 +6,11 @@ window.addEventListener('load', () => {
     let currentDiv2 = document.getElementById('done');
     let main = document.getElementById('toDo').parentNode;
     let cancelButton = document.getElementById('cancel');
+    let randomColor = document.getElementById('randomColor');
+    let chooseColor = document.getElementById('chooseColor');
+    let reset = document.getElementById('resetColor');
+    let cursorPos = document.getElementById('cursorPosition');
+    let change = true;
     
     function createDiv(){
         newDiv = document.createElement('div');
@@ -43,7 +48,6 @@ window.addEventListener('load', () => {
         newDiv.appendChild(newTask);
         newDiv.appendChild(newTaskLabel);
         newDiv.appendChild(newDel);
-        // newDiv.appendChild(editBox);
         main.insertBefore(newDiv, currentDiv1);
     }
 
@@ -84,6 +88,15 @@ window.addEventListener('load', () => {
         document.getElementById('newTaskInput').value = '';
     }
 
+    function getColorCode(){
+        var makeColorCode = '0123456789ABCDEF';
+        var code = '#';
+        for (var i = 0; i < 6; i++) {
+            code = code + makeColorCode[Math.floor(Math.random() * 16)];
+        }
+        return code;
+    }
+
     addTaskButton.addEventListener('click', () => {
         visibility(document.getElementsByClassName('addTask')[0], true); 
         visibility(document.getElementById('cover'), true);
@@ -97,30 +110,49 @@ window.addEventListener('load', () => {
 
     addButton.addEventListener('click', () => {
         mainCode();
-        // let editBox = document.createElement('input');
-        // let editType = document.createAttribute('type');
-        // let editClass = document.createAttribute('class');
-        
-        // editClass.value = 'editBox';
-        // editType.value = 'text';
-        // editBox.setAttributeNode(editClass);
-        // editBox.setAttributeNode(editType);
-
-        // newDiv.addEventListener('dblclick', () => {
-        //     editBox.classList.add('editBox-visible');
-        //     editBox.value = newTaskLabel.innerHTML;
-        // })
-
-        // document.addEventListener('click', () => {
-            
-        // })
-
     })  
 
     cancelButton.addEventListener('click', () => {
         document.getElementById('newTaskInput').value = '';
         visibility(document.getElementsByClassName('addTask')[0], false);
         visibility(document.getElementById('cover'), false);
+    })
+
+    randomColor.addEventListener('click', () => {
+        let color = getColorCode();        
+        document.getElementById('body').style.backgroundColor = color;
+        change = false;
+        cursorPos.classList.remove('cursorPosition-clicked');
+    })
+
+    cursorPos.addEventListener('click', () => {
+        cursorPos.classList.add('cursorPosition-clicked');
+        change = true;
+        alert('Move your mouse around! \r\n Double-Click anywhere to set color.')
+        document.getElementById('body').addEventListener('mousemove', function(e) {
+            if(change == true){
+                console.log('ai miscat mouse-ul');
+                x = e.offsetX;
+                y = e.offsetY;
+                document.getElementById('body').style.backgroundColor = `rgb(${x}, ${y}, ${x - y})`;
+                document.getElementById('body').addEventListener('dblclick', () => {
+                    change = false;
+                    cursorPos.classList.remove('cursorPosition-clicked');
+                })
+            }
+        })
+    })
+
+    chooseColor.addEventListener('change', () => {
+            document.getElementById('body').style.backgroundColor = chooseColor.value;
+            change = false;
+            cursorPos.classList.remove('cursorPosition-clicked');
+    })
+
+    reset.addEventListener('click', () => {
+        document.getElementById('body').style.backgroundColor = '#f3f2ff';
+        change = false;
+        cursorPos.classList.remove('cursorPosition-clicked');
     })
 
 })

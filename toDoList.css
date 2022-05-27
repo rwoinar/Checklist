@@ -7,6 +7,33 @@
     background-color:#5c958c70;
     z-index:2;
 }
+.randomColor{
+    height:60px;
+    font-size: 20px;
+    margin-bottom:10px;
+}
+.cursorPosition{
+    background-color: #5c958cbd;
+    color: #f3f2ff;
+    border:none;
+    height:60px;
+    width:142px;
+    font-size: 20px;
+    margin-top:10px;
+}
+.cursorPosition-clicked{
+    background-color: #f3f2ff;
+    color:#2d625a;
+}
+.resetColor{
+    background-color:#2d625a;
+    color:#5c958c;
+    height:60px;
+    width:142px;
+    font-size: 20px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
 .addTask{
     display:none;
     position:fixed;
@@ -44,7 +71,7 @@
 button:hover{
     cursor: pointer;
 }
-button:not(.cancel){
+button:not(.cancel, .cursorPosition){
     background-color: #5c958cbd;
     color: #f3f2ff;
     border: 1px solid #f3f2ff;
@@ -99,7 +126,7 @@ aside{
     word-break: break-word;
     max-width: 49%;
 }
-div:not(.cover){
+div:not(.cover, #coverButtons){
     color:#2d625a;
 }
 body{
